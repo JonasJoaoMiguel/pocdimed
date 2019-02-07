@@ -1,7 +1,6 @@
 package br.com.jonascruz.pocdimed.controller;
 
 import br.com.jonascruz.pocdimed.service.AbstractCrudService;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,8 +9,8 @@ public abstract class AbstractCrudRestController <ENTITY, SERVICE extends Abstra
     protected abstract SERVICE getService();
 
     @GetMapping()
-    public ResponseEntity<?> list(Pageable pageable) {
-        return ResponseEntity.ok(getService().findAll(pageable));
+    public ResponseEntity<?> list() {
+        return ResponseEntity.ok(getService().findAll());
     }
 
     @GetMapping("/{id}")

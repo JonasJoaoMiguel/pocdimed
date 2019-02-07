@@ -13,4 +13,6 @@ public class LinhaOnibusRestController extends AbstractCrudRestController<LinhaO
     protected LinhaOnibusService getService() {
         return linhaOnibusService;
     }
+
+
 }
