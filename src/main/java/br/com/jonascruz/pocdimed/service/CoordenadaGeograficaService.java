@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class CoordenadaGeograficaService extends AbstractCrudService<CoordenadaGeografica> {
 
-    @Autowired
     private CoordenadaGeograficaRepository coordenadaGeograficaRepository;
 
     public CoordenadaGeograficaService coordenadaGeograficaService;

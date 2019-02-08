@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ItinerarioService extends AbstractCrudService<Itinerario>{
 
-    @Autowired
     private ItinerarioRepository itinerarioRepository;
 
     public ItinerarioService itinerarioService;

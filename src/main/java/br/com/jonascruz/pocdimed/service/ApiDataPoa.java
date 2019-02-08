@@ -5,15 +5,21 @@ import br.com.jonascruz.pocdimed.Config.RestTemplateConverter;
 import br.com.jonascruz.pocdimed.DTO.ItinerarioDTO;
 import br.com.jonascruz.pocdimed.DTO.LinhaOnibusDTO;
 import br.com.jonascruz.pocdimed.entity.LinhaOnibus;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
+@AllArgsConstructor
+@NoArgsConstructor
 public class ApiDataPoa{
 
     @Autowired
@@ -22,13 +28,11 @@ public class ApiDataPoa{
     @Autowired
     private LinhaOnibusService linhaOnibusService;
 
-    @Autowired
-    private RestTemplate restTemplate;
+//    @Autowired
+//    private RestTemplate restTemplate;
 
     @Autowired
     private RestTemplateConverter restTemplateConverter;
-
-    List <LinhaOnibus> listaOnibus = findAll();
 
     public List<LinhaOnibus> findAll() {
         String url = "http://www.poatransporte.com.br/php/facades/process.php?a=nc&p=%&t=o";
@@ -40,8 +44,10 @@ public class ApiDataPoa{
                 linhaOnibusService.toObject(linhaOnibusDTO)).collect(Collectors.toList());
     }
 
+    List <LinhaOnibus> listaLinhaOnibus = findAll();
+
     public void createItinerario() {
-        for(LinhaOnibus l : listaOnibus) {
+        for(LinhaOnibus l : listaLinhaOnibus) {
             String id = l.getId();
             String url = "http://www.poatransporte.com.br/php/facades/process.php?a=il&p=" + id;
             ResponseEntity<List<ItinerarioDTO>> response = restTemplateConverter.messageConverter().exchange(

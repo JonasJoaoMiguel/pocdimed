@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class LinhaOnibusService extends AbstractCrudService<LinhaOnibus>{
 
-    @Autowired
     private LinhaOnibusRepositoy linhaOnibusRepositoy;
 
     public LinhaOnibusService linhaOnibusService;
@@ -34,6 +33,10 @@ public class LinhaOnibusService extends AbstractCrudService<LinhaOnibus>{
                 .build();
         return linhaOnibus;
 
+    }
+
+    public LinhaOnibus findByNome(String nome){
+        return linhaOnibusRepositoy.findByNome(nome);
     }
 
 }
