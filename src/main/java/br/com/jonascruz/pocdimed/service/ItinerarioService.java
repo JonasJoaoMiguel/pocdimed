@@ -12,13 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ItinerarioService extends AbstractCrudService<Itinerario>{
 
+    @Autowired
     private ItinerarioRepository itinerarioRepository;
-
-    public ItinerarioService itinerarioService;
-
-    public ItinerarioService getInstance(){
-        return itinerarioService;
-    }
 
     @Override
     protected JpaRepository getRepository() {
@@ -27,10 +22,10 @@ public class ItinerarioService extends AbstractCrudService<Itinerario>{
 
     public Itinerario toObject(ItinerarioDTO itinerarioDTO) {
         Itinerario itinerario = Itinerario.builder()
-                .idlinha(itinerarioDTO.getIdlinha())
+                .idlinha(new Long(itinerarioDTO.getIdlinha()))
                 .codigo(itinerarioDTO.getCodigo())
                 .nome(itinerarioDTO.getNome())
-                .coordenadaGeograficaList(itinerarioDTO.findAll())
+                .coordenadaGeografica(itinerarioDTO.getCoordenadaGeografica())
                 .build();
         return itinerario;
         }

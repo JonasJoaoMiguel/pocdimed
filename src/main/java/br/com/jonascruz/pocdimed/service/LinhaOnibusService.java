@@ -4,7 +4,6 @@ import br.com.jonascruz.pocdimed.DTO.LinhaOnibusDTO;
 import br.com.jonascruz.pocdimed.entity.LinhaOnibus;
 import br.com.jonascruz.pocdimed.repository.LinhaOnibusRepositoy;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +13,6 @@ public class LinhaOnibusService extends AbstractCrudService<LinhaOnibus>{
 
     private LinhaOnibusRepositoy linhaOnibusRepositoy;
 
-    public LinhaOnibusService linhaOnibusService;
-
-    public LinhaOnibusService getInstance(){
-        return linhaOnibusService;
-    }
 
     @Override
     protected JpaRepository getRepository() {

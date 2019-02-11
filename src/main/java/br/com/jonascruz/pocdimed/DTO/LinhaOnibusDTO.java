@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class LinhaOnibusDTO {
 
-    private String id;
+    private Long id;
     private String codigo;
     private String nome;
 }

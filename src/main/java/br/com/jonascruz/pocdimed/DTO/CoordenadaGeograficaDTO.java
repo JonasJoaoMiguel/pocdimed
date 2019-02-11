@@ -1,4 +1,4 @@
-package br.com.jonascruz.pocdimed.entity;
+package br.com.jonascruz.pocdimed.DTO;
 
 
 import lombok.Data;

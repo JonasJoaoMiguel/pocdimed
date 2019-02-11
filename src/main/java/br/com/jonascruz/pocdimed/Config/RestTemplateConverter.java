@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 
 @Configuration
-public class RestTemplateConverter {
+public class RestTemplateConverter extends RestTemplate {
 
     public RestTemplate messageConverter() {
         RestTemplate restTemplate = new RestTemplate();

@@ -5,12 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
+
 @Data
 @Builder
 @AllArgsConstructor
-public class LinhaOnibus {
+@Entity
+public class LinhaOnibus implements Serializable {
 
-    private String id;
+    @Id
+    private Long id;
     private String codigo;
     private String nome;
 
