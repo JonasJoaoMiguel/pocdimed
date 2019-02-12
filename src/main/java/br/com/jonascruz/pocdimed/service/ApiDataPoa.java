@@ -1,9 +1,9 @@
 package br.com.jonascruz.pocdimed.service;
 
 
-import br.com.jonascruz.pocdimed.Config.RestTemplateConverter;
-import br.com.jonascruz.pocdimed.DTO.ItinerarioDTO;
-import br.com.jonascruz.pocdimed.DTO.LinhaOnibusDTO;
+import br.com.jonascruz.pocdimed.config.RestTemplateConverter;
+import br.com.jonascruz.pocdimed.dto.ItinerarioDTO;
+import br.com.jonascruz.pocdimed.dto.LinhaOnibusDTO;
 import br.com.jonascruz.pocdimed.entity.LinhaOnibus;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

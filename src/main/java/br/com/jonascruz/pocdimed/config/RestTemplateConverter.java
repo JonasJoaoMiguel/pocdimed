@@ -1,4 +1,4 @@
-package br.com.jonascruz.pocdimed.Config;
+package br.com.jonascruz.pocdimed.config;
 
 
 import org.springframework.context.annotation.Configuration;

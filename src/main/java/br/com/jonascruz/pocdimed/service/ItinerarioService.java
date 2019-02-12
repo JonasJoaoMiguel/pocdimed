@@ -1,6 +1,6 @@
 package br.com.jonascruz.pocdimed.service;
 
-import br.com.jonascruz.pocdimed.DTO.ItinerarioDTO;
+import br.com.jonascruz.pocdimed.dto.ItinerarioDTO;
 import br.com.jonascruz.pocdimed.entity.Itinerario;
 import br.com.jonascruz.pocdimed.repository.ItinerarioRepository;
 import lombok.AllArgsConstructor;

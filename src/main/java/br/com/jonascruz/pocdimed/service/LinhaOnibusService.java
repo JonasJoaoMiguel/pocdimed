@@ -1,6 +1,6 @@
 package br.com.jonascruz.pocdimed.service;
 
-import br.com.jonascruz.pocdimed.DTO.LinhaOnibusDTO;
+import br.com.jonascruz.pocdimed.dto.LinhaOnibusDTO;
 import br.com.jonascruz.pocdimed.entity.LinhaOnibus;
 import br.com.jonascruz.pocdimed.repository.LinhaOnibusRepositoy;
 import lombok.AllArgsConstructor;
