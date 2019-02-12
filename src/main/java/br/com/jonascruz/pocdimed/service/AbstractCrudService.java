@@ -1,16 +1,16 @@
 package br.com.jonascruz.pocdimed.service;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractCrudService<ENTITY> {
 
-    protected abstract JpaRepository<ENTITY, Long> getRepository();
+public abstract class AbstractCrudService<entity> {
 
-    public ENTITY save(ENTITY entity){
+    protected abstract JpaRepository<entity, Long> getRepository();
+
+    public entity save(entity entity){
         return getRepository().save(entity);
     }
 
@@ -18,11 +18,11 @@ public abstract class AbstractCrudService<ENTITY> {
         getRepository().deleteById(id);
     }
 
-    public Optional<ENTITY> findById(Long id){
+    public Optional<entity> findById(Long id){
         return getRepository().findById(id);
     }
 
-    public List<ENTITY> findAll() {
+    public List<entity> findAll() {
         return getRepository().findAll();
     }
 }

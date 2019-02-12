@@ -3,21 +3,25 @@ package br.com.jonascruz.pocdimed.service;
 import br.com.jonascruz.pocdimed.entity.Cliente;
 import br.com.jonascruz.pocdimed.repository.ClienteRepository;
 import br.com.jonascruz.pocdimed.stub.ClienteStub;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
+import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import java.util.List;
-import java.util.Optional;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class ClienteServiceTest {
 
     @Mock
@@ -28,53 +32,42 @@ public class ClienteServiceTest {
 
     private Cliente cliente;
 
-    @BeforeAll
-    public void before() {
+    @BeforeEach
+    void before() {
         cliente = ClienteStub.getCliente();
     }
 
     @Test
     public void createClienteTest(){
         when(clienteRepository.save(Mockito.any())).thenReturn(cliente);
-        Assert.assertEquals(clienteService.save(cliente), cliente);
+        Assertions.assertEquals(clienteService.save(cliente), cliente);
+        verify(clienteRepository).save(cliente);
     }
 
     @Test
     public void updateClienteTest(){
-        Cliente cliente = Cliente.builder()
-                .id(1l)
-                .nome("jonas")
-                .cpf(000000000)
-                .build();
-        Cliente c = clienteRepository.save(cliente);
-        c.setNome("joao");
-        clienteRepository.save(c);
-        Assert.assertEquals(c.getNome(), "joao");
+        when(clienteRepository.save(Mockito.any())).thenReturn(cliente);
+        cliente.setNome("joao");
+        Assertions.assertEquals(clienteService.save(cliente).getNome(), "joao");
     }
 
     @Test
     public void findAllClienteTest(){
-        for(int i = 1; i <= 3; i++){
-            Cliente cliente = Cliente.builder()
-                    .nome("jonas"+i)
-                    .cpf(00000000)
-                    .build();
-            Cliente c = clienteRepository.save(cliente);
+        when(clienteRepository.save(Mockito.any())).thenReturn(cliente);
+        List<Cliente> clientes = Lists.newArrayList(Cliente.builder().nome("Miguel").build(),
+                Cliente.builder().nome("Joao").build());
+        for(Cliente cliente1 : clientes){
+            when(clienteRepository.save(Mockito.any())).thenReturn(cliente1);
         }
-        List<Cliente> list = clienteRepository.findAll();
-        Assert.assertEquals(list.size(), 3);
+        when(clienteRepository.findAll()).thenReturn(clientes);
+        Assertions.assertEquals(clienteService.findAll(), clientes);
     }
 
     @Test
     public void findByIdClienteTest(){
-        Cliente cliente = Cliente.builder()
-                .nome("jonas")
-                .cpf(00000000)
-                .build();
-        Cliente c = clienteRepository.save(cliente);
-        Optional<Cliente> d = clienteRepository.findById(c.getId());
-        Assert.assertEquals(c, d.get());
-        Assert.assertEquals(c.getId(), d.get().getId());
+        when(clienteRepository.findById(Mockito.any())).thenReturn(java.util.Optional.ofNullable(cliente));
+        Assertions.assertEquals(clienteService.findById(cliente.getId()), java.util.Optional.ofNullable(cliente));
+        verify(clienteRepository).findById(cliente.getId());
     }
 
 
