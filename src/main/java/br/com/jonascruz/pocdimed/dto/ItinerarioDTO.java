@@ -16,7 +16,7 @@ public class ItinerarioDTO {
     @Autowired
     public CoordenadaGeograficaService coordenadaGeograficaService;
 
-    private String idlinha;
+    private Long idlinha;
     private String nome;
     private String codigo;
     private CoordenadaGeografica coordenadaGeografica;

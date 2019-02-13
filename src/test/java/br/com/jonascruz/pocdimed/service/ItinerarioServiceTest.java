@@ -1,8 +1,11 @@
 package br.com.jonascruz.pocdimed.service;
 
-import br.com.jonascruz.pocdimed.dto.LinhaOnibusDTO;
+import br.com.jonascruz.pocdimed.dto.ItinerarioDTO;
+import br.com.jonascruz.pocdimed.entity.Itinerario;
 import br.com.jonascruz.pocdimed.entity.LinhaOnibus;
+import br.com.jonascruz.pocdimed.repository.ItinerarioRepository;
 import br.com.jonascruz.pocdimed.repository.LinhaOnibusRepositoy;
+
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,53 +25,51 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.times;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-public class LinhaOnibusServiceTest  {
-
-    private LinhaOnibusDTO linhaOnibusDTO;
+class ItinerarioServiceTest {
 
     @Mock
     private RestTemplate restTemplate;
 
+    @Mock
+    private LinhaOnibusRepositoy linhaOnibusRepositoy;
+
+    @Mock
+    private ItinerarioRepository itinerarioRepository;
+
     @InjectMocks
-    private LinhaOnibusService linhaOnibusService;
-
-    @Mock
-    private LinhaOnibusRepositoy linhaOnibusRepository;
-
-    @Mock
     private ItinerarioService itinerarioService;
 
-
     @Test
-    public void buscaLinhasTest(){
-        List<LinhaOnibusDTO> body = Lists.newArrayList(
-                LinhaOnibusDTO.builder()
-                        .id(1L)
-                        .codigo("123")
+    public void createItinerarioTest(){
+        List<ItinerarioDTO> body = Lists.newArrayList(
+                ItinerarioDTO.builder()
+                        .codigo("passo")
                         .nome("B56").build(),
-                LinhaOnibusDTO.builder()
-                        .id(2L)
-                        .codigo("321")
-                        .nome("B55").build());
+                ItinerarioDTO.builder()
+                        .codigo("iguatemi")
+                        .nome("B25").build());
+        Itinerario itinerario = Itinerario.builder()
+                .codigo("AA").nome("BB").build();
         when(restTemplate.exchange(anyString(),
                 eq(HttpMethod.GET),
                 eq(null),
-                eq(new ParameterizedTypeReference<List<LinhaOnibusDTO>>(){})
+                eq(new ParameterizedTypeReference<List<ItinerarioDTO>>(){})
         )).thenReturn(new ResponseEntity(body, HttpStatus.OK));
+        when(itinerarioRepository.save(Mockito.any())).thenReturn(itinerario);
+        Assertions.assertEquals(itinerarioService.createItinerario(
+                Lists.newArrayList(
+                LinhaOnibus
+                        .builder()
+                        .id(1L)
+                        .nome("jjjj").build())).size(), 1 );
 
-        LinhaOnibus linhaOnibus = LinhaOnibus.builder()
-                .id(1L).codigo("123").nome("B56").build();
-        when(linhaOnibusRepository.save(Mockito.any())).thenReturn(linhaOnibus);
-        Assertions.assertTrue(linhaOnibusService.buscaLinhas().size() > 0);
-        Mockito.verify(linhaOnibusRepository, times(2)).save(linhaOnibus);
+
+
     }
 
-
 }
-

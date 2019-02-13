@@ -9,19 +9,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional(readOnly = true)
 @AllArgsConstructor
 @Service
 public class LinhaOnibusService extends AbstractCrudService<LinhaOnibus>{
 
     private LinhaOnibusRepositoy linhaOnibusRepositoy;
-
     private RestTemplate restTemplate;
-
     private ItinerarioService itinerarioService;
 
     @Override
@@ -29,17 +29,19 @@ public class LinhaOnibusService extends AbstractCrudService<LinhaOnibus>{
         return linhaOnibusRepositoy;
     }
 
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public LinhaOnibus toObject(LinhaOnibusDTO linhaOnibusDTO){
         LinhaOnibus linhaOnibus = LinhaOnibus.builder()
                 .id(linhaOnibusDTO.getId())
                 .codigo(linhaOnibusDTO.getCodigo())
                 .nome(linhaOnibusDTO.getNome())
                 .build();
+        getRepository().save(linhaOnibus);
         return linhaOnibus;
 
     }
 
-    public List<LinhaOnibus> findAll() {
+    public List<LinhaOnibus> buscaLinhas() {
         ResponseEntity<List<LinhaOnibusDTO>> response = restTemplate.exchange(
                 "http://www.poatransporte.com.br/php/facades/process.php?a=nc&p=%&t=o",
                 HttpMethod.GET,
@@ -49,10 +51,8 @@ public class LinhaOnibusService extends AbstractCrudService<LinhaOnibus>{
                 toObject(linhaOnibusDTO)).collect(Collectors.toList());
     }
 
-    List <LinhaOnibus> listaLinhaOnibus = getRepository().findAll();
-
     private void createItinerario(){
-        itinerarioService.createItinerario(listaLinhaOnibus);
+        itinerarioService.createItinerario(getRepository().findAll());
     }
 
     public LinhaOnibus findByNome(String nome){

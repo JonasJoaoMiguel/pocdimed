@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -65,8 +66,8 @@ public class ClienteServiceTest {
 
     @Test
     public void findByIdClienteTest(){
-        when(clienteRepository.findById(Mockito.any())).thenReturn(java.util.Optional.ofNullable(cliente));
-        Assertions.assertEquals(clienteService.findById(cliente.getId()), java.util.Optional.ofNullable(cliente));
+        when(clienteRepository.findById(Mockito.any())).thenReturn(Optional.of(cliente));
+        Assertions.assertEquals(clienteService.findById(cliente.getId()), Optional.of(cliente));
         verify(clienteRepository).findById(cliente.getId());
     }
 

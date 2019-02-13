@@ -19,9 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class ItinerarioService extends AbstractCrudService<Itinerario>{
 
-
     private ItinerarioRepository itinerarioRepository;
-
     private RestTemplate restTemplate;
 
     @Override
@@ -29,22 +27,25 @@ public class ItinerarioService extends AbstractCrudService<Itinerario>{
         return itinerarioRepository;
     }
 
-    public void createItinerario(List<LinhaOnibus> listaLinhaOnibus) {
-        for(LinhaOnibus l : listaLinhaOnibus) {
+    public List<Itinerario> createItinerario(List<LinhaOnibus> listaLinhaOnibus) {
+        List<Itinerario> listaItinerario = null;
+        for (LinhaOnibus l : listaLinhaOnibus) {
             Long id = l.getId();
             ResponseEntity<List<ItinerarioDTO>> response = restTemplate.exchange(
                     "http://www.poatransporte.com.br/php/facades/process.php?a=il&p=".concat(id.toString()),
                     HttpMethod.GET, null,
-                    new ParameterizedTypeReference<List<ItinerarioDTO>>(){});
-            response.getBody().stream().map(itinerarioDTO ->
-                    toObject(itinerarioDTO)).collect(Collectors.toList());
+                    new ParameterizedTypeReference<List<ItinerarioDTO>>() {});
+            listaItinerario.addAll(response.getBody().stream().map(itinerarioDTO ->
+                    toObject(itinerarioDTO)).collect(Collectors.toList()));
         }
+        return listaItinerario;
+
     }
 
 
     public Itinerario toObject(ItinerarioDTO itinerarioDTO) {
         Itinerario itinerario = Itinerario.builder()
-                .idlinha(new Long(itinerarioDTO.getIdlinha()))
+                .idlinha(itinerarioDTO.getIdlinha())
                 .codigo(itinerarioDTO.getCodigo())
                 .nome(itinerarioDTO.getNome())
                 .coordenadaGeografica(itinerarioDTO.getCoordenadaGeografica())
