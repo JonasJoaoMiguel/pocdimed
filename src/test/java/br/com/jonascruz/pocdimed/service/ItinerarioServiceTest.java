@@ -5,7 +5,6 @@ import br.com.jonascruz.pocdimed.entity.Itinerario;
 import br.com.jonascruz.pocdimed.entity.LinhaOnibus;
 import br.com.jonascruz.pocdimed.repository.ItinerarioRepository;
 import br.com.jonascruz.pocdimed.repository.LinhaOnibusRepositoy;
-
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -60,13 +60,14 @@ class ItinerarioServiceTest {
                 eq(null),
                 eq(new ParameterizedTypeReference<List<ItinerarioDTO>>(){})
         )).thenReturn(new ResponseEntity(body, HttpStatus.OK));
-        when(itinerarioRepository.save(Mockito.any())).thenReturn(itinerario);
-        Assertions.assertEquals(itinerarioService.createItinerario(
-                Lists.newArrayList(
-                LinhaOnibus
+        List<LinhaOnibus> lista = new ArrayList<>();
+        lista.add(LinhaOnibus
                         .builder()
                         .id(1L)
-                        .nome("jjjj").build())).size(), 1 );
+                        .nome("jjjj").build());
+        when(itinerarioRepository.save(Mockito.any())).thenReturn(itinerario);
+        itinerarioService.createItinerario(lista);
+        Assertions.assertEquals(lista.get(0).getNome(), "jjjj");
 
 
 

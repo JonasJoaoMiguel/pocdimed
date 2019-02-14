@@ -15,6 +15,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "ITINERARIO")
 public class Itinerario implements Serializable {
 
 
@@ -22,8 +23,10 @@ public class Itinerario implements Serializable {
     @Column(name = "ID", nullable = false)
     private Long idlinha;
 
+    @Column(name = "CODIGO")
     private String codigo;
 
+    @Column(name = "NOME")
     private String nome;
 
     @NotNull

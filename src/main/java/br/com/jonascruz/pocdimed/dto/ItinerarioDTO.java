@@ -5,7 +5,6 @@ import br.com.jonascruz.pocdimed.entity.CoordenadaGeografica;
 import br.com.jonascruz.pocdimed.service.CoordenadaGeograficaService;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -13,8 +12,7 @@ import java.util.List;
 @Builder
 public class ItinerarioDTO {
 
-    @Autowired
-    public CoordenadaGeograficaService coordenadaGeograficaService;
+    private CoordenadaGeograficaService coordenadaGeograficaService;
 
     private Long idlinha;
     private String nome;

@@ -23,7 +23,6 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -66,7 +65,7 @@ public class LinhaOnibusServiceTest  {
                 .id(1L).codigo("123").nome("B56").build();
         when(linhaOnibusRepository.save(Mockito.any())).thenReturn(linhaOnibus);
         Assertions.assertTrue(linhaOnibusService.buscaLinhas().size() > 0);
-        Mockito.verify(linhaOnibusRepository, times(2)).save(linhaOnibus);
+        Mockito.verify(linhaOnibusRepository).save(linhaOnibus);
     }
 
 

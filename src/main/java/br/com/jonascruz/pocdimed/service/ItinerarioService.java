@@ -27,18 +27,16 @@ public class ItinerarioService extends AbstractCrudService<Itinerario>{
         return itinerarioRepository;
     }
 
-    public List<Itinerario> createItinerario(List<LinhaOnibus> listaLinhaOnibus) {
-        List<Itinerario> listaItinerario = null;
+    public void createItinerario(List<LinhaOnibus> listaLinhaOnibus) {
         for (LinhaOnibus l : listaLinhaOnibus) {
             Long id = l.getId();
             ResponseEntity<List<ItinerarioDTO>> response = restTemplate.exchange(
                     "http://www.poatransporte.com.br/php/facades/process.php?a=il&p=".concat(id.toString()),
                     HttpMethod.GET, null,
                     new ParameterizedTypeReference<List<ItinerarioDTO>>() {});
-            listaItinerario.addAll(response.getBody().stream().map(itinerarioDTO ->
-                    toObject(itinerarioDTO)).collect(Collectors.toList()));
+            response.getBody().stream().map(itinerarioDTO ->
+                    toObject(itinerarioDTO)).collect(Collectors.toList());
         }
-        return listaItinerario;
 
     }
 
