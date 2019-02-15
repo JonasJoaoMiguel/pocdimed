@@ -40,8 +40,8 @@ public class LinhaOnibusServiceTest  {
     @Mock
     private LinhaOnibusRepositoy linhaOnibusRepository;
 
-    @Mock
-    private ItinerarioService itinerarioService;
+    //@Mock
+    //private ItinerarioService itinerarioService;
 
 
     @Test

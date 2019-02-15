@@ -8,7 +8,7 @@ public class ClienteStub {
         return Cliente.builder()
                 .id(1l)
                 .nome("jonas")
-                .cpf(000000000)
+                .cpf(Long.valueOf(000000000))
                 .build();
 
     }

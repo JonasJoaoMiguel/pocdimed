@@ -41,6 +41,9 @@ class ItinerarioServiceTest {
     @Mock
     private ItinerarioRepository itinerarioRepository;
 
+    @Mock
+    private LinhaOnibusService linhaOnibusService;
+
     @InjectMocks
     private ItinerarioService itinerarioService;
 

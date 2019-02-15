@@ -1,6 +1,7 @@
 package br.com.jonascruz.pocdimed.controller;
 
 import br.com.jonascruz.pocdimed.service.AbstractCrudService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +30,8 @@ public abstract class AbstractCrudRestController <entity, service extends Abstra
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
         getService().delete(id);
-        return ResponseEntity.noContent().build();
     }
 }

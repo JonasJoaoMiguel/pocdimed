@@ -13,19 +13,22 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "CLIENTE")
+@SequenceGenerator(name = "S_CLIENTE", sequenceName = "S_CLIENTE", allocationSize = 1, initialValue = 1)
 public class Cliente implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "S_CLIENTE", sequenceName = "S_CLIENTE", allocationSize = 1)
-    @GeneratedValue(generator = "S_CLIENTE", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "S_CLIENTE", strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "NOME")
     private String nome;
 
-    private int cpf;
+    @Column(name = "CPF")
+    private Long cpf;
 
-    @JoinColumn(name = "ID_LISTALINHAS", referencedColumnName = "ID")
-    @ManyToOne
-    private LinhaOnibus listaLinhas;
+   // @JoinColumn(name = "ID_LISTALINHAS", referencedColumnName = "ID")
+   // @ManyToOne
+   // private LinhaOnibus linhas;
 
 }

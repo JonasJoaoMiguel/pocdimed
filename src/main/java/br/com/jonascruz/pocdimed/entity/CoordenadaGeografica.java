@@ -4,18 +4,29 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Data
 @Builder
 @AllArgsConstructor
 @Entity
-public class CoordenadaGeografica {
+@Table(name = "COORDENADA_GEOGRAFICA")
+public class CoordenadaGeografica implements Serializable {
+
+    @Id
+    @Column(name = "ID")
+    private Long idItinerario;
 
     @Column(name = "LAT")
-    private String lat;
+    private double lat;
 
     @Column(name = "LNG")
-    private String lng;
+    private double lng;
+
+    @NotNull
+    @JoinColumn(name = "ID_ITINERARIO", referencedColumnName = "ID")
+    @OneToOne
+    private Itinerario itinerario;
 }

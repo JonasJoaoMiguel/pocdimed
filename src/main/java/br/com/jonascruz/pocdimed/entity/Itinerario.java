@@ -30,8 +30,8 @@ public class Itinerario implements Serializable {
     private String nome;
 
     @NotNull
-    @JoinColumn(name = "ID_COORDENADAGEOGRAFICA", referencedColumnName = "ID")
-    @ManyToOne
-    private CoordenadaGeografica coordenadaGeografica;
+    @JoinColumn(name = "ID_LINHA_ONIBUS", referencedColumnName = "ID")
+    @OneToOne
+    private LinhaOnibus linhaOnibus;
 
 }

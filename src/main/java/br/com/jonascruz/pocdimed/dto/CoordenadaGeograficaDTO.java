@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class CoordenadaGeograficaDTO {
 
-    private String lat;
-    private String lng;
+    private double lat;
+    private double lng;
 
 }

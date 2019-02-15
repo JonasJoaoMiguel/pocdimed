@@ -27,6 +27,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	runtimeOnly 'com.h2database:h2'
 	compileOnly 'org.projectlombok:lombok'
+	compile 'org.postgresql:postgresql:9.4-1206-jdbc42'
 	compile('org.springframework.boot:spring-boot-starter-test') {
 		exclude module: 'junit'
 	}

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class ItinerarioService extends AbstractCrudService<Itinerario>{
 
     private ItinerarioRepository itinerarioRepository;
+    private LinhaOnibusService linhaOnibusService;
     private RestTemplate restTemplate;
 
     @Override
@@ -42,11 +44,12 @@ public class ItinerarioService extends AbstractCrudService<Itinerario>{
 
 
     public Itinerario toObject(ItinerarioDTO itinerarioDTO) {
+        Optional<LinhaOnibus> linhaOnibusAux = linhaOnibusService.findById(itinerarioDTO.getIdlinha());
         Itinerario itinerario = Itinerario.builder()
                 .idlinha(itinerarioDTO.getIdlinha())
                 .codigo(itinerarioDTO.getCodigo())
                 .nome(itinerarioDTO.getNome())
-                .coordenadaGeografica(itinerarioDTO.getCoordenadaGeografica())
+                .linhaOnibus(linhaOnibusAux.orElse(null))
                 .build();
         return itinerario;
         }

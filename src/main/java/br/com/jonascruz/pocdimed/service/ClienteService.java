@@ -6,8 +6,10 @@ import br.com.jonascruz.pocdimed.repository.ClienteRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Data
 @Service
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 @NoArgsConstructor
 public class ClienteService extends AbstractCrudService<Cliente> {
 
+    @Autowired
     private ClienteRepository clienteRepository;
 
     @Override
@@ -22,7 +25,16 @@ public class ClienteService extends AbstractCrudService<Cliente> {
         return clienteRepository;
     }
 
-    public void addLinhaOnibus(LinhaOnibus linha){
+    @Transactional
+    public Cliente salvaClienteComDTO(Cliente cliente) {
+//        Cliente cliente = Cliente.builder()
+//                .nome(clienteDTO.getNome())
+//                .cpf(clienteDTO.getCpf())
+//                .build();
+        return clienteRepository.save(cliente);
+    }
+
+    public void addLinhaOnibus(LinhaOnibus linha) {
         this.addLinhaOnibus(linha);
     }
 
