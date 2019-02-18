@@ -1,5 +1,6 @@
 package br.com.jonascruz.pocdimed.controller;
 
+import br.com.jonascruz.pocdimed.dto.ClienteDTO;
 import br.com.jonascruz.pocdimed.entity.Cliente;
 import br.com.jonascruz.pocdimed.service.ClienteService;
 import lombok.AllArgsConstructor;
@@ -10,19 +11,23 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/clientes")
 @AllArgsConstructor
-public class ClienteRestController extends AbstractCrudRestController<Cliente, ClienteService> {
+public class ClienteRestController {
 
-    //@Autowired
+
     private ClienteService clienteService;
 
-    @Override
     protected ClienteService getService() {
         return clienteService;
     }
 
     @PostMapping("/cliente")
-    public ResponseEntity<?> salvaCliente(@RequestBody Cliente clienteDTO){
+    public ResponseEntity<?> salvaCliente(@RequestBody ClienteDTO clienteDTO){
         return ResponseEntity.ok(clienteService.salvaClienteComDTO(clienteDTO));
+    }
+
+    @PutMapping("/cliente/{id}")
+    public ResponseEntity<?> update(@RequestBody Cliente cliente){
+        return ResponseEntity.ok(clienteService.save(cliente));
     }
 
     @GetMapping("/cliente")

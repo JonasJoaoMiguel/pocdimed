@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LinhaOnibusRepositoy extends JpaRepository<LinhaOnibus, Long> {
 
-    public LinhaOnibus findByNome(String nome);
+    LinhaOnibus findByNome(String nome);
 
 }

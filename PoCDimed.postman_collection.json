@@ -1,0 +1,349 @@
+{
+	"info": {
+		"_postman_id": "883f7e97-e454-44c4-89ea-500d6ade1e73",
+		"name": "PoCDimed",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Buscar Itinerario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://www.poatransporte.com.br/php/facades/process.php?a=il&p=5566",
+					"protocol": "http",
+					"host": [
+						"www",
+						"poatransporte",
+						"com",
+						"br"
+					],
+					"path": [
+						"php",
+						"facades",
+						"process.php"
+					],
+					"query": [
+						{
+							"key": "a",
+							"value": "il"
+						},
+						{
+							"key": "p",
+							"value": "5566"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Linhas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://www.poatransporte.com.br/php/facades/process.php?a=nc&p=%&t=o",
+					"protocol": "http",
+					"host": [
+						"www",
+						"poatransporte",
+						"com",
+						"br"
+					],
+					"path": [
+						"php",
+						"facades",
+						"process.php"
+					],
+					"query": [
+						{
+							"key": "a",
+							"value": "nc"
+						},
+						{
+							"key": "p",
+							"value": "%"
+						},
+						{
+							"key": "t",
+							"value": "o"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Linhas Por Raio",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente.salvar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"Luis Miguel\",\n\t\"cpf\": \"3435465608\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/clientes/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LinhaOnibus.salvar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"5566\",\n\t\"nome\": \"IGUATEMI\",\n\t\"codigo\": \"617\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/linhasonibus/linhaonibus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"linhasonibus",
+						"linhaonibus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente.update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 45,\n\t\"nome\": \"Luis Alberto\",\n\t\"cpf\": \"3435465608\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/clientes/cliente/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"cliente",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente.findAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/clientes/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LinhaOnibus.findAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LinhaOnibus.findById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Itinerario.salvar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"idLinha\": \"5580\",\n\t\"nome\": \"AAABBB\",\n\t\"codigo\": \"TYUI\",\n\t\"linhaOnibus\": {\n\t\t \"id\": 5580,\n\t\t \"codigo\": \"B56\",\n    \t \"nome\": \"IGUATEMI\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/itinerarios/itinerario",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"itinerarios",
+						"itinerario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Itinerario.findById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Itinerario.findAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/itinerarios/itinerario",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"itinerarios",
+						"itinerario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CoordenadaGeografica.salvar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"lat\": 30.000000000,\n\t\"lng\": 20.000000000,\n\t\"itinerario\": {\n\t\t\"idLinha\": \"5511\",\n\t\t\"nome\": \"AAABBB\",\n\t\t\"codigo\": \"TYUI\",\n\t\t\"linhaOnibus\": {\n\t\t\t \"id\": 5511,\n\t\t\t \"codigo\": \"B56\",\n\t    \t \"nome\": \"IGUATEMI\"\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/coordenadasgeograficas/coordenadageografica",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"coordenadasgeograficas",
+						"coordenadageografica"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

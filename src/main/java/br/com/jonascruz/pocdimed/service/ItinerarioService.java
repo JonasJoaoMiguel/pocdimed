@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -42,15 +43,16 @@ public class ItinerarioService extends AbstractCrudService<Itinerario>{
 
     }
 
-
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public Itinerario toObject(ItinerarioDTO itinerarioDTO) {
-        Optional<LinhaOnibus> linhaOnibusAux = linhaOnibusService.findById(itinerarioDTO.getIdlinha());
+        Optional<LinhaOnibus> linhaOnibusAux = linhaOnibusService.findById(itinerarioDTO.getIdLinha());
         Itinerario itinerario = Itinerario.builder()
-                .idlinha(itinerarioDTO.getIdlinha())
+                .idlinha(itinerarioDTO.getIdLinha())
                 .codigo(itinerarioDTO.getCodigo())
                 .nome(itinerarioDTO.getNome())
                 .linhaOnibus(linhaOnibusAux.orElse(null))
                 .build();
+        getRepository().save(itinerario);
         return itinerario;
         }
     }

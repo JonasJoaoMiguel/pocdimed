@@ -18,6 +18,7 @@ import java.io.Serializable;
 public class Cliente implements Serializable {
 
     @Id
+    @Column(name = "ID")
     @GeneratedValue(generator = "S_CLIENTE", strategy = GenerationType.IDENTITY)
     private Long id;
 

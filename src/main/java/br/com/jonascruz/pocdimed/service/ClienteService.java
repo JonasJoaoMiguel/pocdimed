@@ -1,5 +1,6 @@
 package br.com.jonascruz.pocdimed.service;
 
+import br.com.jonascruz.pocdimed.dto.ClienteDTO;
 import br.com.jonascruz.pocdimed.entity.Cliente;
 import br.com.jonascruz.pocdimed.entity.LinhaOnibus;
 import br.com.jonascruz.pocdimed.repository.ClienteRepository;
@@ -25,12 +26,12 @@ public class ClienteService extends AbstractCrudService<Cliente> {
         return clienteRepository;
     }
 
-    @Transactional
-    public Cliente salvaClienteComDTO(Cliente cliente) {
-//        Cliente cliente = Cliente.builder()
-//                .nome(clienteDTO.getNome())
-//                .cpf(clienteDTO.getCpf())
-//                .build();
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public Cliente salvaClienteComDTO(ClienteDTO clienteDTO) {
+        Cliente cliente = Cliente.builder()
+                .nome(clienteDTO.getNome())
+                .cpf(clienteDTO.getCpf())
+                .build();
         return clienteRepository.save(cliente);
     }
 
