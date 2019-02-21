@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 @Builder
 @Data
@@ -30,8 +31,8 @@ public class Itinerario implements Serializable {
     private String nome;
 
     @NotNull
-    @JoinColumn(name = "ID_LINHA_ONIBUS", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_COORDENADA_GEOGRAFICA", referencedColumnName = "ID")
     @OneToOne
-    private LinhaOnibus linhaOnibus;
+    private List<CoordenadaGeografica> coordenadaGeograficaList;
 
 }

@@ -20,7 +20,7 @@ public class CoordenadaGeograficaRestController {
     }
 
     @PostMapping("/coordenadageografica")
-    public ResponseEntity<?> salvaCliente(@RequestBody CoordenadaGeograficaDTO coordenadaGeograficaDTO){
+    public ResponseEntity<?> salvaItinerario(@RequestBody CoordenadaGeograficaDTO coordenadaGeograficaDTO){
         return ResponseEntity.ok(coordenadaGeograficaService.toObject(coordenadaGeograficaDTO));
     }
 

@@ -1,12 +1,12 @@
 package br.com.jonascruz.pocdimed.dto;
 
 
-import br.com.jonascruz.pocdimed.entity.LinhaOnibus;
-import br.com.jonascruz.pocdimed.service.CoordenadaGeograficaService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -14,10 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ItinerarioDTO {
 
-    private CoordenadaGeograficaService coordenadaGeograficaService;
-
+    private List<CoordenadaGeograficaDTO> coordenadaGeograficaDTOList;
     private Long idLinha;
     private String nome;
     private String codigo;
-    private LinhaOnibus linhaOnibus;
 }

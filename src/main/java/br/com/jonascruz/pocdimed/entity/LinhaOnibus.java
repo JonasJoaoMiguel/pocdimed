@@ -1,10 +1,7 @@
 package br.com.jonascruz.pocdimed.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +14,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode
+@ToString
 @Table(name = "LINHA_ONIBUS")
 public class LinhaOnibus implements Serializable {
 

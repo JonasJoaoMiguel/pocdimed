@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -29,8 +28,4 @@ public class CoordenadaGeografica implements Serializable {
     @Column(name = "LNG")
     private double lng;
 
-    @NotNull
-    @JoinColumn(name = "ID_ITINERARIO", referencedColumnName = "ID")
-    @OneToOne
-    private Itinerario itinerario;
 }

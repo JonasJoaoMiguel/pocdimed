@@ -1,6 +1,5 @@
 package br.com.jonascruz.pocdimed.controller;
 
-import br.com.jonascruz.pocdimed.dto.ItinerarioDTO;
 import br.com.jonascruz.pocdimed.entity.Itinerario;
 import br.com.jonascruz.pocdimed.service.ItinerarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +18,10 @@ public class ItinerarioRestController {
         return itinerarioService;
     }
 
-    @PostMapping("/itinerario")
-    public ResponseEntity<?> salvaCliente(@RequestBody ItinerarioDTO itinerarioDTO){
-        return ResponseEntity.ok(itinerarioService.toObject(itinerarioDTO));
-    }
+//    @PostMapping("/itinerario")
+//    public ResponseEntity<?> salvaItinerario(@RequestBody ItinerarioDTO itinerarioDTO){
+//        return ResponseEntity.ok(itinerarioService.toObject(itinerarioDTO));
+//    }
 
     @PutMapping("/itinerario/{id}")
     public ResponseEntity<?> update(@RequestBody Itinerario itinerario){

@@ -19,13 +19,13 @@ public class LinhaOnibusRestController {
     }
 
     @PostMapping("/linhaonibus")
-    public ResponseEntity<?> salvaCliente(@RequestBody LinhaOnibusDTO linhaOnibusDTO){
-        return ResponseEntity.ok(linhaOnibusService.toObject(linhaOnibusDTO));
+    public ResponseEntity<?> salvaCliente(){
+        return ResponseEntity.ok(linhaOnibusService.buscaLinhas());
     }
 
     @PutMapping("/linhaonibus/{id}")
     public ResponseEntity<?> update(@RequestBody LinhaOnibusDTO linhaOnibusDTO){
-        return ResponseEntity.ok(linhaOnibusService.toObject(linhaOnibusDTO));
+        return ResponseEntity.ok(linhaOnibusService.linhaToObject(linhaOnibusDTO));
     }
 
     @GetMapping("/linhaonibus")
