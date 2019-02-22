@@ -15,13 +15,18 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+//@IdClass(IdItinerario.class)
 @Entity
 @Table(name = "ITINERARIO")
+@SequenceGenerator(name = "S_ITINERARIO", sequenceName = "S_ITINERARIO", allocationSize = 1, initialValue = 1)
 public class Itinerario implements Serializable {
 
-
     @Id
+    @GeneratedValue(generator = "S_ITINERARIO", strategy = GenerationType.SEQUENCE)
     @Column(name = "ID", nullable = false)
+    private Long id;
+
+    @Column(name = "ID_LINHA", nullable = false)
     private Long idlinha;
 
     @Column(name = "CODIGO")
@@ -31,8 +36,8 @@ public class Itinerario implements Serializable {
     private String nome;
 
     @NotNull
-    @JoinColumn(name = "ID_COORDENADA_GEOGRAFICA", referencedColumnName = "ID")
-    @OneToOne
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idItinerario")
+    @ElementCollection(targetClass=CoordenadaGeografica.class)
     private List<CoordenadaGeografica> coordenadaGeograficaList;
 
 }

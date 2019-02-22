@@ -14,13 +14,15 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "COORDENADA_GEOGRAFICA")
-@SequenceGenerator(name = "S_COORDENADA_GEOGRAFICA", sequenceName = "S_COORDENADA_GEOGRAFICA", allocationSize = 1, initialValue = 1)
 public class CoordenadaGeografica implements Serializable {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(generator = "S_COORDENADA_GEOGRAFICA", strategy = GenerationType.IDENTITY)
     private Long id;
+
+//    @JoinColumn(name = "ID_ITINERARIO")
+    @Column(name = "idItinerario")
+    private Long idItinerario;
 
     @Column(name = "LAT")
     private double lat;
@@ -28,4 +30,6 @@ public class CoordenadaGeografica implements Serializable {
     @Column(name = "LNG")
     private double lng;
 
+//    @ManyToOne
+//    private Itinerario itinerario;
 }

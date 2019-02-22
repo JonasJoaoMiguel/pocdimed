@@ -285,7 +285,17 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/itinerarios/itinerario/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"itinerarios",
+						"itinerario",
+						"1"
+					]
 				}
 			},
 			"response": []

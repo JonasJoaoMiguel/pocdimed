@@ -9,7 +9,6 @@ import br.com.jonascruz.pocdimed.entity.Itinerario;
 import br.com.jonascruz.pocdimed.entity.LinhaOnibus;
 import br.com.jonascruz.pocdimed.repository.LinhaOnibusRepositoy;
 import lombok.AllArgsConstructor;
-import org.json.JSONObject;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpMethod;
@@ -17,8 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
@@ -55,7 +53,6 @@ public class LinhaOnibusService extends AbstractCrudService<LinhaOnibus>{
     }
 
     public void criaItinerarios(List<LinhaOnibus> listaLinhas){
-
         for (LinhaOnibus l : listaLinhas) {
             Long id = l.getId();
             ResponseEntity<ItinerarioDTO> responseItinerario = converter.messageConverter().exchange(
@@ -63,8 +60,7 @@ public class LinhaOnibusService extends AbstractCrudService<LinhaOnibus>{
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<ItinerarioDTO>() {});
-            responseItinerario.getBody().stream().map(itinerarioDTO ->
-                    itinerarioToObject(itinerarioDTO)).collect(Collectors.toList());
+            itinerarioToObject(responseItinerario);
         }
     }
 
@@ -83,29 +79,34 @@ public class LinhaOnibusService extends AbstractCrudService<LinhaOnibus>{
         return null;
     }
 
-    public Itinerario itinerarioToObject(ItinerarioDTO itinerarioDTO) {
-//        Optional<LinhaOnibus> linhaOnibusAux = Optional.ofNullable
-//                (getRepository().findById(itinerarioDTO.getIdLinha())).orElse(null);
+    public Itinerario itinerarioToObject(ResponseEntity<ItinerarioDTO> itinerarioDTO) {
         Itinerario itinerario = Itinerario.builder()
-//                .idlinha(itinerarioDTO.getIdLinha())
-                .coordenadaGeograficaList(coordenadaToObject(itinerarioDTO.getCoordenadaGeograficaDTOList()))
+                .idlinha(itinerarioDTO.getBody().getIdlinha())
+                .codigo(itinerarioDTO.getBody().getCodigo())
+                .nome(itinerarioDTO.getBody().getNome())
+                .coordenadaGeograficaList(coordenadaToObject(itinerarioDTO.getBody().getItinerario()))
                 .build();
-        itinerarioService.getRepository().save(itinerario);
-        return itinerario;
+        Itinerario auxiliar = (Itinerario) itinerarioService.getRepository().save(itinerario);
+        for(CoordenadaGeografica c : auxiliar.getCoordenadaGeograficaList()){
+            c.setIdItinerario(auxiliar.getId());
+        }
+        return auxiliar;
     }
 
-    public List<CoordenadaGeografica> coordenadaToObject(List<CoordenadaGeograficaDTO> coordenadaGeograficaDTOList){
-        List<CoordenadaGeografica> listaRetorno = null;
-        for (CoordenadaGeograficaDTO c : coordenadaGeograficaDTOList) {
+    public List<CoordenadaGeografica> coordenadaToObject(Map <String, CoordenadaGeograficaDTO> map){
+        List<CoordenadaGeografica> listaRetorno = new ArrayList<>();
+        Set<String> keys = map.keySet();
+        for(String s : keys){
+            Long idAux = Long.valueOf(s);
             CoordenadaGeografica coordenadaGeografica = CoordenadaGeografica.builder()
-                    .lat(c.getLat())
-                    .lng(c.getLng())
+                    .id(idAux)
+                    .lat(map.get(s).getLat())
+                    .lng(map.get(s).getLng())
                     .build();
-            coordenadaGeograficaService.getRepository().save(coordenadaGeografica);
-            listaRetorno.add(coordenadaGeografica);
+
+            listaRetorno.add(coordenadaGeograficaService.getRepository().save(coordenadaGeografica));
         }
         return listaRetorno;
-
     }
 
     public LinhaOnibus findByNome(String nome){
