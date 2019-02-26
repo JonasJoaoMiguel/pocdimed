@@ -20,9 +20,10 @@ public class CoordenadaGeografica implements Serializable {
     @Column(name = "ID")
     private Long id;
 
-//    @JoinColumn(name = "ID_ITINERARIO")
-    @Column(name = "idItinerario")
-    private Long idItinerario;
+    @ManyToOne
+    @JoinColumn(name = "ID_ITINERARIO")
+//    @Column(name = "idItinerario")
+    private Itinerario idItinerario;
 
     @Column(name = "LAT")
     private double lat;

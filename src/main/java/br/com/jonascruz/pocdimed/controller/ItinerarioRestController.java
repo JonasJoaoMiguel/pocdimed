@@ -44,4 +44,9 @@ public class ItinerarioRestController {
         itinerarioService.delete(id);
     }
 
+    @GetMapping("/itinerario/idlinha/{id}")
+    public ResponseEntity<?> buscaItinerarioPorLinha(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(itinerarioService.buscaItinerarioPorIdLinha(id));
+    }
+
 }

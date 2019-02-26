@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Service
 public class ItinerarioService extends AbstractCrudService<Itinerario>{
@@ -29,5 +31,9 @@ public class ItinerarioService extends AbstractCrudService<Itinerario>{
                 .build();
         getRepository().save(itinerario);
         return itinerario;
-        }
     }
+
+    public List<Itinerario> buscaItinerarioPorIdLinha(Long id){
+        return itinerarioRepository.findByIdlinha(id);
+    }
+}

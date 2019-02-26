@@ -1,10 +1,7 @@
 package br.com.jonascruz.pocdimed.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,7 +12,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//@IdClass(IdItinerario.class)
+@EqualsAndHashCode
+@ToString
 @Entity
 @Table(name = "ITINERARIO")
 @SequenceGenerator(name = "S_ITINERARIO", sequenceName = "S_ITINERARIO", allocationSize = 1, initialValue = 1)

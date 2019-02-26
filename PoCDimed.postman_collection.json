@@ -43,6 +43,21 @@
 			"response": []
 		},
 		{
+			"name": "Buscar Linhas Lotacao",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Buscar Linhas",
 			"request": {
 				"method": "GET",
@@ -142,6 +157,30 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"id\": \"5566\",\n\t\"nome\": \"IGUATEMI\",\n\t\"codigo\": \"617\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/linhasonibus/linhaonibus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"linhasonibus",
+						"linhaonibus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LinhaLotacao.salvar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://localhost:8080/linhasonibus/linhaonibus",
@@ -276,7 +315,7 @@
 			"response": []
 		},
 		{
-			"name": "Itinerario.findById",
+			"name": "Itinerario.findByIdLinha",
 			"request": {
 				"method": "GET",
 				"header": [],

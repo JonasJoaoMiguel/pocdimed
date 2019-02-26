@@ -19,7 +19,7 @@ public class LinhaOnibusRestController {
     }
 
     @PostMapping("/linhaonibus")
-    public ResponseEntity<?> salvaCliente(){
+    public ResponseEntity<?> salvaOnibus(){
         return ResponseEntity.ok(linhaOnibusService.buscaLinhas());
     }
 
