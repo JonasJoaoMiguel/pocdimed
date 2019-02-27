@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @Controller
 @RequestMapping("/linhasonibus")
 public class LinhaOnibusRestController {
@@ -41,6 +43,11 @@ public class LinhaOnibusRestController {
     @DeleteMapping("/linhaonibus/{id}")
     public void excluir(@PathVariable("id") Long id) {
         linhaOnibusService.delete(id);
+    }
+
+    @GetMapping("/linhaonibus/filter")
+    public ResponseEntity<?> findByNome(@PathParam("nome") String nome) {
+        return ResponseEntity.ok(linhaOnibusService.findByNome(nome));
     }
 
 
