@@ -55,22 +55,15 @@ public class LinhaOnibusService extends AbstractCrudService<LinhaOnibus>{
     }
 
     public void criaItinerarios(List<LinhaOnibus> listaLinhas){
-//        for (LinhaOnibus l : listaLinhas) {
-//            Long id = l.getId();
-//            ResponseEntity<ItinerarioDTO> responseItinerario = converter.messageConverter().exchange(
-//                    "http://www.poatransporte.com.br/php/facades/process.php?a=il&p="+id,
-//                    HttpMethod.GET,
-//                    null,
-//                    new ParameterizedTypeReference<ItinerarioDTO>() {});
-//            itinerarioToObject(responseItinerario);
-//        }
-        listaLinhas.stream().map(LinhaOnibus::getId).map(id -> converter.messageConverter().exchange(
-                "http://www.poatransporte.com.br/php/facades/process.php?a=il&p=" + id,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<ItinerarioDTO>() {
-                })).limit(0).forEachOrdered(this::itinerarioToObject);
-
+        for (LinhaOnibus l : listaLinhas) {
+            Long id = l.getId();
+            ResponseEntity<ItinerarioDTO> responseItinerario = converter.messageConverter().exchange(
+                    "http://www.poatransporte.com.br/php/facades/process.php?a=il&p="+id,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<ItinerarioDTO>() {});
+            itinerarioToObject(responseItinerario);
+        }
     }
 
     public LinhaOnibus linhaToObject(LinhaOnibusDTO linhaOnibusDTO){
