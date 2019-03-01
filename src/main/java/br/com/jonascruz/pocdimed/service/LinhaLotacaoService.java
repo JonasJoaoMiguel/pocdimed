@@ -108,4 +108,9 @@ public class LinhaLotacaoService extends AbstractCrudService<LinhaLotacao> {
         return listaRetorno;
     }
 
+    public List<LinhaLotacao> findByNome(String nome){
+        return linhaLotacaoRepository.findByNomeContainingIgnoreCase(nome);
+    }
+
+
 }

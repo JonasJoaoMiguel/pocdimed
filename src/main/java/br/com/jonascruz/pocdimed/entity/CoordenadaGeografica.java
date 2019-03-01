@@ -22,7 +22,6 @@ public class CoordenadaGeografica implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "ID_ITINERARIO")
-//    @Column(name = "idItinerario")
     private Itinerario idItinerario;
 
     @Column(name = "LAT")
@@ -31,6 +30,4 @@ public class CoordenadaGeografica implements Serializable {
     @Column(name = "LNG")
     private double lng;
 
-//    @ManyToOne
-//    private Itinerario itinerario;
 }

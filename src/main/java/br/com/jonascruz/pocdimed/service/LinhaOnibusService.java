@@ -55,7 +55,9 @@ public class LinhaOnibusService extends AbstractCrudService<LinhaOnibus>{
     }
 
     public void criaItinerarios(List<LinhaOnibus> listaLinhas){
+        int i = listaLinhas.size();
         for (LinhaOnibus l : listaLinhas) {
+            i--;
             Long id = l.getId();
             ResponseEntity<ItinerarioDTO> responseItinerario = converter.messageConverter().exchange(
                     "http://www.poatransporte.com.br/php/facades/process.php?a=il&p="+id,

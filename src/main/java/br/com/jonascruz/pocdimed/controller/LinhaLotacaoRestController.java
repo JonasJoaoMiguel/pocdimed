@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @Controller
 @RequestMapping("/linhaslotacao")
 public class LinhaLotacaoRestController {
@@ -41,6 +43,11 @@ public class LinhaLotacaoRestController {
     @DeleteMapping("/linhalotacao/{id}")
     public void excluir(@PathVariable("id") Long id) {
         linhaLotacaoService.delete(id);
+    }
+
+    @GetMapping("/linhalotacao/filter")
+    public ResponseEntity<?> findByNome(@PathParam("nome") String nome) {
+        return ResponseEntity.ok(linhaLotacaoService.findByNome(nome));
     }
 
 
