@@ -4,7 +4,6 @@ package br.com.jonascruz.pocdimed.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class Itinerario implements Serializable {
     @Column(name = "NOME")
     private String nome;
 
-    @NotNull
+    //@NotNull
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idItinerario")
     @ElementCollection(targetClass=CoordenadaGeografica.class)
     private List<CoordenadaGeografica> coordenadaGeograficaList;

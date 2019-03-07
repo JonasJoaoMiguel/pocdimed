@@ -88,7 +88,7 @@ public class LinhaLotacaoService extends AbstractCrudService<LinhaLotacao> {
                 .build();
         Itinerario auxiliar = (Itinerario) itinerarioService.getRepository().save(itinerario);
         for(CoordenadaGeografica c : auxiliar.getCoordenadaGeograficaList()){
-            c.setIdItinerario(auxiliar);
+            c.setIdItinerario(auxiliar.getId());
         }
     }
 

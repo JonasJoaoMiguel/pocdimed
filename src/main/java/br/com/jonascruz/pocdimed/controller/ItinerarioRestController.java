@@ -1,8 +1,8 @@
 package br.com.jonascruz.pocdimed.controller;
 
-import br.com.jonascruz.pocdimed.dto.ItinerarioDTO;
 import br.com.jonascruz.pocdimed.entity.Itinerario;
 import br.com.jonascruz.pocdimed.service.ItinerarioService;
+import br.com.jonascruz.pocdimed.service.LinhaOnibusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,13 +15,16 @@ public class ItinerarioRestController {
     @Autowired
     private ItinerarioService itinerarioService;
 
+    @Autowired
+    private LinhaOnibusService linhaOnibusService;
+
     protected ItinerarioService getService() {
         return itinerarioService;
     }
 
     @PostMapping("/itinerario")
-    public ResponseEntity<?> salvaItinerario(@RequestBody ItinerarioDTO itinerarioDTO){
-        return ResponseEntity.ok(itinerarioService.toObject(itinerarioDTO));
+    public ResponseEntity<?> salvaItinerario(){
+        return ResponseEntity.ok(itinerarioService.criaItinerarios());
     }
 
     @PutMapping("/itinerario/{id}")
