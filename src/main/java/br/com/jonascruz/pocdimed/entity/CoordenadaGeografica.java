@@ -20,10 +20,9 @@ public class CoordenadaGeografica implements Serializable {
     @Column(name = "ID")
     private Long id;
 
-    //@NotNull
-    //@ManyToOne
+    //@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_ITINERARIO", referencedColumnName = "ID")
-    private Long idItinerario;
+    private Long iditinerario;
 
     @Column(name = "LAT")
     private double lat;

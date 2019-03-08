@@ -5,6 +5,7 @@ import br.com.jonascruz.pocdimed.dto.CoordenadaGeograficaDTO;
 import br.com.jonascruz.pocdimed.dto.ItinerarioDTO;
 import br.com.jonascruz.pocdimed.entity.CoordenadaGeografica;
 import br.com.jonascruz.pocdimed.entity.Itinerario;
+import br.com.jonascruz.pocdimed.entity.LinhaLotacao;
 import br.com.jonascruz.pocdimed.entity.LinhaOnibus;
 import br.com.jonascruz.pocdimed.repository.ItinerarioRepository;
 import lombok.AllArgsConstructor;
@@ -15,16 +16,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @AllArgsConstructor
 @Service
 public class ItinerarioService extends AbstractCrudService<Itinerario>{
 
     private LinhaOnibusService linhaOnibusService;
+    private LinhaLotacaoService linhaLotacaoService;
     private ItinerarioRepository itinerarioRepository;
     private RestTemplateConverter converter;
     private CoordenadaGeograficaService coordenadaGeograficaService;
@@ -37,33 +36,54 @@ public class ItinerarioService extends AbstractCrudService<Itinerario>{
     @Transactional
     public List<Itinerario> criaItinerarios(){
         List<Itinerario> listaRetorno = new ArrayList<>();
-        List<LinhaOnibus> listaLinhas = linhaOnibusService.findAll();
-        int i = listaLinhas.size();
-        for (LinhaOnibus l : listaLinhas) {
-            i--;
-            Long id = l.getId();
-            ResponseEntity<ItinerarioDTO> responseItinerario = converter.messageConverter().exchange(
-                    "http://www.poatransporte.com.br/php/facades/process.php?a=il&p="+id,
-                    HttpMethod.GET,
-                    null,
-                    new ParameterizedTypeReference<ItinerarioDTO>() {});
-            Itinerario auxiliar = itinerarioToObject(responseItinerario);
-            listaRetorno.add(auxiliar);
-        }
+        List<LinhaOnibus> listaLinhasOnibus = linhaOnibusService.findAll();
+        List<LinhaLotacao> listaLinhasLotacao = linhaLotacaoService.findAll();
+        try {
+            for (LinhaOnibus l : listaLinhasOnibus) {
+                Long id = l.getId();
+                Optional<Itinerario> comp = getRepository().findById(id);
+                ResponseEntity<ItinerarioDTO> responseItinerario = converter.messageConverter().exchange(
+                        "http://www.poatransporte.com.br/php/facades/process.php?a=il&p=" + id,
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<ItinerarioDTO>() {
+                        });
+                Itinerario auxiliar = itinerarioToObject(responseItinerario,comp);
+                listaRetorno.add(auxiliar);
+            }
+            for (LinhaLotacao l : listaLinhasLotacao) {
+                Long id = l.getId();
+                Optional<Itinerario> comp = getRepository().findById(id);
+                ResponseEntity<ItinerarioDTO> responseItinerario = converter.messageConverter().exchange(
+                        "http://www.poatransporte.com.br/php/facades/process.php?a=il&p="+id,
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<ItinerarioDTO>() {});
+                Itinerario auxiliar = itinerarioToObject(responseItinerario, comp);
+                listaRetorno.add(auxiliar);
+            }
+
+        }catch (Exception e){
+        e.printStackTrace();
+    }
         return listaRetorno;
     }
 
-    public Itinerario itinerarioToObject(ResponseEntity<ItinerarioDTO> itinerarioDTO) {
+    public Itinerario itinerarioToObject(
+            ResponseEntity<ItinerarioDTO> itinerarioDTO, Optional<Itinerario> comp) {
         Itinerario itinerario = Itinerario.builder()
                 .idlinha(itinerarioDTO.getBody().getIdlinha())
                 .codigo(itinerarioDTO.getBody().getCodigo())
                 .nome(itinerarioDTO.getBody().getNome())
                 .coordenadaGeograficaList(coordenadaToObject(itinerarioDTO.getBody().getItinerario()))
                 .build();
-        Itinerario auxiliar = (Itinerario) getRepository().save(itinerario);
-        for(CoordenadaGeografica c : auxiliar.getCoordenadaGeograficaList()){
-            c.setIdItinerario(auxiliar.getId());
+        if(itinerario.equals(comp)) {
+            System.out.print("Itinerario já cadastrado");
+            return null;
         }
+        Itinerario auxiliar = (Itinerario) getRepository().save(itinerario);
+        for(CoordenadaGeografica c : auxiliar.getCoordenadaGeograficaList())
+            c.setIditinerario(auxiliar.getIdlinha());
         return auxiliar;
     }
 

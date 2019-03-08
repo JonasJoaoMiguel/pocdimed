@@ -15,15 +15,10 @@ import java.util.List;
 @ToString
 @Entity
 @Table(name = "ITINERARIO")
-@SequenceGenerator(name = "S_ITINERARIO", sequenceName = "S_ITINERARIO", allocationSize = 1, initialValue = 1)
 public class Itinerario implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "S_ITINERARIO", strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID", nullable = false)
-    private Long id;
-
-    @Column(name = "ID_LINHA", nullable = false)
+    @Column(name = "ID")
     private Long idlinha;
 
     @Column(name = "CODIGO")
@@ -32,9 +27,8 @@ public class Itinerario implements Serializable {
     @Column(name = "NOME")
     private String nome;
 
-    //@NotNull
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idItinerario")
-    @ElementCollection(targetClass=CoordenadaGeografica.class)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iditinerario")
+    //@ElementCollection(targetClass=CoordenadaGeografica.class)
     private List<CoordenadaGeografica> coordenadaGeograficaList;
 
 }
